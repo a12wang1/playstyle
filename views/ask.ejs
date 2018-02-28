@@ -1,0 +1,171 @@
+<%- include header %>
+<script type="text/javascript" src="/xheditor/xheditor-1.2.2.min.js"></script>
+<script type="text/javascript" src="/xheditor/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript" src="/javascripts/jq.form.js"></script>
+
+<script type="text/javascript">
+    $(document).on("change", "#ajax", function () {
+/************************************************************************文件上传ajax方法base64位*****************************************************************/
+        var reader = new FileReader();
+        reader.readAsDataURL($(this)[0].files[0])
+        var newBase64;
+        var names = $(this)[0].files[0].name;
+        let format = names.substring(names.lastIndexOf(".") + 1, names.length)
+        let name = names.substring(0, names.lastIndexOf("."));
+        reader.onload = function (evt) {
+            var base64 = reader.result;
+            // 重点来了 ajax在传输过程中 加号会变成空格 base64里是有加号的我不幸掉进了这个坑……
+            // 把+替换成编码 %2B是加号的编码
+
+//            newBase64 = base64.replace(/\+/g, "%2B");图片直接网页显示需要转换否则上传别转，图片会损坏
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:3030/base64UP",
+                data: {
+                    "imgData": base64,
+                    "name": name,
+                    "format": format
+                },
+                success: function (rel) {
+                    console.log(rel)
+                }, error: function (rel) {
+                    console.log("error");
+                }
+            })
+        }
+/************************************************************************图片直接显示缩略图*****************************************************************/
+
+        /*   const file=$(this)[0].files[0];
+
+           let url;
+           if (window.createObjectURL!=undefined) { // basic
+               url = window.createObjectURL(file) ;
+           } else if (window.URL!=undefined) { // mozilla(firefox)
+               url = window.URL.createObjectURL(file) ;
+           } else if (window.webkitURL!=undefined) { // webkit or chrome
+               url = window.webkitURL.createObjectURL(file) ;
+           }
+           console.log(url);
+//           $("#img").attr('src',url).css('height',"50px" ).css('width',"50px" );
+           var eImg = $('<img />');
+           eImg.attr('src',url).css('height',"50px" ).css('width',"50px" );
+           // 或 this.files[0] this->input
+           $(this).after(eImg);*/
+
+/************************************************************************文件上传ajax方法非base64位*****************************************************************/
+        //文件上传ajax方法
+
+        /*var formData = new FormData();
+        formData.append("filedata",$(this)[0].files[0]);
+        formData.append("name","filedata");
+        $.ajax({
+            url : "http://localhost:3030/uploadImg",
+            type : 'POST',
+            data : formData,
+// 告诉jQuery不要去处理发送的数据
+            processData : false,
+// 告诉jQuery不要去设置Content-Type请求头
+            contentType : false,
+            beforeSend:function(){
+                console.log("正在进行，请稍候");
+            },
+            success : function(rel) {
+                console.log(rel)
+            },
+            error : function(responseStr) {
+                console.log("error");
+            }
+        });*/
+    })
+
+    $(pageInit);
+
+    function pageInit() {
+        $.extend(XHEDITOR.settings, {shortcuts: {'ctrl+enter': submitForm}});
+        $('#content').xheditor({
+            html5Upload: false,
+            upMultiple: '1',
+            upLinkUrl: "upload.php",
+            upLinkExt: "zip,rar,txt",
+            upImgUrl: "/uploadImg",
+            upImgExt: "jpg,jpeg,gif,png",
+            upFlashUrl: "upload.php",
+            upFlashExt: "swf",
+            upMediaUrl: "upload.php",
+            upMediaExt: "wmv,avi,wma,mp3,mid"
+        });
+    }
+
+    function insertUpload(arrMsg) {
+        console.log(arrMsg)
+        var i, msg;
+        for (i = 0; i < arrMsg.length; i++) {
+            msg = arrMsg[i];
+            $("#uploadList").append('<option value="' + msg.id + '">' + msg.localname + '</option>');
+        }
+    }
+
+    function a() {
+        $("#formmine").ajaxSubmit(function (message) {
+            console.log(message);
+        });
+        return false;
+    }
+
+    function submitForm() {
+        $('#frmDemo').submit();
+    }
+</script>
+<br/>
+<form method="POST" action="./askTi">
+    <table align="center">
+        <tr>
+            <td align="right">标题:</td>
+            <td><input type="text" name="title"/></td>
+        </tr>
+        <tr>
+            <td align="right">分类:</td>
+            <td>
+                <select name="type"/>
+                <option value="1-javascript">javascript</option>
+                <option value="2-php">php</option>
+                <option value="3-pathon">pathon</option>
+                <option value="4-java">java</option>
+                <option value="5-mysql">mysql</option>
+                <option value="6-ios">ios</option>
+                <option value="7-android">android</option>
+                <option value="8-node.js">node.js</option>
+                <option value="9-html5">html5</option>
+                <option value="10-lunux">lunux</option>
+                <option value="11-c++">c++</option>
+                <option value="12-其他">其他</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+
+            </td>
+        </tr>
+        <tr>
+            <td align="right" valign="top">内容:</td>
+            <td>
+                <textarea id="content" name="content" cols="120" rows="9"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="hidden" name="subflag" value="1"/>
+                <input type="submit" value="提问"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<form action="/uploadImg" method="POST" enctype="multipart/form-data" id="formmine">
+    <input name="filedata" type="file" id="ajax" accept="image/*" multiple="multiple">
+
+</form>
+<button id="tj" onclick="a()">提交</button>
+<img id="img">
+</body>
+</html>
