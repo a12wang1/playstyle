@@ -178,7 +178,9 @@ module.exports = {
                             }
                             //console.log('执行第1条完毕');
                             callback(err, rs);//没有则callback(null,1);第2个参数是返回结果
+                            console.log(rs);
                         });
+
                     }
                 ], function (err, result) {
                     console.log(result[1].changedRows);
@@ -190,7 +192,7 @@ module.exports = {
                         if (err) {
                             res.send('数据库错误:' + err);
                         } else {
-                            res.send('未找到正确该用户');
+                            res.send('未正确找到该用户');
                         }
                         return;
                     }

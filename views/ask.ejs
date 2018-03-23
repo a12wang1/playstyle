@@ -14,13 +14,14 @@
         let name = names.substring(0, names.lastIndexOf("."));
         reader.onload = function (evt) {
             var base64 = reader.result;
+            console.log(base64.length,format,name)
             // 重点来了 ajax在传输过程中 加号会变成空格 base64里是有加号的我不幸掉进了这个坑……
             // 把+替换成编码 %2B是加号的编码
 
 //            newBase64 = base64.replace(/\+/g, "%2B");图片直接网页显示需要转换否则上传别转，图片会损坏
             $.ajax({
                 type: "POST",
-                url: "http://localhost:3030/base64UP",
+                url: "/base64UP",
                 data: {
                     "imgData": base64,
                     "name": name,

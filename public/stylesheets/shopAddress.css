@@ -1,0 +1,94 @@
+.caption{
+	height: 21px;
+    font-weight: 700;
+    color: #fc6210;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px; 
+}
+.layui-nav .layui-nav-item {
+    line-height: 50px;
+}
+.row{
+	position: relative;
+    padding-left: 105px;
+    padding-bottom: 10px;
+    zoom: 1;
+    text-align: left;
+}
+.rowSpan{
+	display: inline;
+    float: left;
+    width: 100px;
+    margin-left: -105px;
+    text-align: right;
+    height: 26px;
+    line-height: 26px;
+}
+.rowSpan i{
+	color:red;
+	line-height: 26px;
+}
+.row input{
+	border: 1px solid #afafaf;
+    padding: 3px;
+    width: 200px;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: middle;
+}
+.row.check input{
+	width: auto;
+	height: auto;
+	line-height: auto;
+	margin:0;
+	padding:0
+	
+}
+.row.check label{
+	font-weight:100;
+	font-size: 7px;
+}
+.submitAdr{
+	border-radius:5px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+        height: 25px;
+    line-height: 25px;
+    background-image:-webkit-linear-gradient(0deg, #fff, #ccc); 
+    background-image:linear-gradient(0deg,#fff,#ccc);
+}
+.rowTip{
+	padding: 4px 4px 4px 24px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #404040;
+    background-color: #FFFFE5;
+    border: 1px solid #FFCC7F;
+    overflow: hidden;
+    zoom: 1;
+    display: none;
+    zoom: 1;
+}
+.rowTip i{
+	background-position: 0 0;
+	display: inline;
+    float: left;
+    margin-left: -20px;
+    width: 16px;
+    height: 16px;
+    background: url(../img/error.png) no-repeat 0 0;
+    background-size:20px;
+}
+
+#getProvinces{
+	color:#111;
+}
+.operationA{
+	color:#55da1e;
+	cursor:pointer		
+}
+.operationA:hover{
+	color:rgba(85, 218, 30, 0.65)	
+}

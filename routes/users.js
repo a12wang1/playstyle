@@ -25,4 +25,18 @@ router.all('/zuce', function(req, res) {
     console.log("ininssasad");
     userModel["zhuche"](req,res);
 });
+router.all('/isLogin', function(req, res) {
+    let loginBean = req.session.loginBean;
+console.log(loginBean)
+    console.log("进来查询登录状态了");
+let json={};
+if(loginBean===undefined){
+json.data=false
+}else{
+    json.data=true
+
+}
+    res.send(json);
+
+});
 module.exports = router;

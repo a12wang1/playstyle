@@ -1,0 +1,465 @@
+.layui-nav .layui-nav-item {
+    line-height: 50px;
+}
+.h_body_commodity {
+	display:inline-block;
+    width: 290px;
+    padding: 10px;
+    height: 420px;
+    margin-bottom: 14px;
+    background-color: #777;
+    cursor: pointer;
+    position: relative;
+    z-index:1;
+}
+.h_body_commodity_img {
+    float: left;
+    width: 270px;
+    height: 280px;
+    background-color: #burlywood;
+}
+.addBuyCar{
+	position:absolute;
+	height:30px;
+	width:270px;
+	display: block;
+    line-height: 30px;
+    top:260px;
+    color:#b31d1e;
+    background-color: rgb(199, 199, 199);
+    text-align:center;
+	font-weight: bold;
+	z-index:1000;
+}
+.h_body_commodity_name {
+    float: left;
+    width: 100%;
+    color: #000000;
+    font-size: 14px;
+    text-align: center;
+    line-height: 14px;
+    margin-top: 14px;
+}
+.h_body_commodity_price {
+    float: left;
+    width: 100%;
+    color: #b31d1e;
+    font-size: 20px;
+    margin-top: 14px;
+    margin-bottom: 0px;
+    text-align: center;
+    line-height: 20px;
+}
+.h_body_commodity_other {
+    font-size: 12px;
+}
+.h_body_commodity_hr {
+    float: left;
+    width: 210px;
+    height: 1px;
+    margin-top: 14px;
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: #E5E5E5;
+}
+.h_body_commodity_buy {
+    float: left;
+    display: inline-block;
+    width: 100px;
+    color: #D9D9D9;
+    font-size: 12px;
+    margin-top: 19px;
+	margin-left: 40px;
+    line-height: 12px;
+    
+}
+#commodity {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height:200px;
+}
+
+.buyButton {
+    display: inline-block;
+    width: 85px;
+    height: 37px;
+    font-weight: bold;
+    background: #E60041;
+    text-align: center;
+    color: #fff;
+    line-height: 37px;
+    font-size: 14px;
+    margin-top: 5px;
+    border-radius:4px;
+    letter-spacing:1px;
+    z-index:1001
+}
+.noBuyThing{
+	height: 20px;
+    color: wheat;
+    margin:20px auto;
+    text-align: center;
+    width:100%;
+    float:right;
+}
+.beijin{
+	background-image: url(../img/background-pic.jpg);
+	weight:100%
+}
+.labBody{
+	float: left;
+    padding: 25px 30px 25px 36px;
+    width: 1124px;
+    margin-top: 30px;
+}
+.labTitle{
+	float: left;
+    font-size: 16px;
+    line-height: 16px;
+    padding-top: 10px;
+    padding-right: 60px;
+    color:#bbb
+}
+.labButton{
+	float: left;
+    height: 30px;
+    padding: 0px 10px;
+    line-height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid #aaa;
+    margin-left: 14px;
+    margin-top: 10px;
+    background-color: #a2a2a2;
+}
+.labButtonDiv{
+	width: 700px;
+    float: left;
+}
+.labButtonBeClick{
+	background-color: #89aabe;	
+}
+/* --------------------------------------- commodity.js的css样式------------------------------- */
+
+.buyFast {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9990;
+    width: 0;
+    height: 100%;
+}
+.buyToolbar {
+    position: absolute;
+    right: 0; 
+    top: 0;
+    width: 0;
+    height: 100%;
+    border-right: 6px solid #7a6e6e;
+    -webkit-transition: right .3s ease-in-out 0s;
+    -moz-transition: right .3s ease-in-out 0s;
+    transition: right .3s ease-in-out 0s;
+}
+.buyToolbarPanels {
+    position: absolute;
+    left: 6px;
+    _left: 6px;
+    top: 0;
+    width: 270px;
+    height: 100%;
+    z-index: 2;
+    background: #eceaea;
+/*     display: none;
+ */}
+.buyToolbarTabs {
+    position: absolute;
+    top: 50%;
+    left: -29px;
+    width: 35px;
+    margin-top: -61px;
+}
+.buyFastOpen{
+	
+}
+.buyToolbarTip{
+	display:none;
+	position:absolute;
+	top: 0;
+    right: 35px;
+    height: 35px;
+    line-height: 35px;
+    white-space: nowrap;
+    border-radius: 5px;
+    background: #c81623;
+    color: #fff;
+    padding: 0 10px;
+}
+.buyToolbarTip b{
+	width: 0;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    border: transparent 6px dashed;
+    border-left: 6px solid #c81623;
+    position: absolute;
+    right: -12px;
+    top: 12px;
+    z-index: 20;
+}
+.buyFastOpen .buyToolbar {
+    right: 270px;
+}
+.buyToolbarTabsTab {
+    position: relative;
+    width: 35px;
+    height: 135px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    background-color: #7a6e6e;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+.TabIco {
+    width: 34px;
+    height: 135px;
+    margin-left: 1px;
+    position: relative;
+    z-index: 2;
+    background-color: #7a6e6e;
+    display: block;
+    font-size:25px;
+    color:#ddd;
+    line-height: 35px;
+}
+.TabIco span{
+	font-size:20px;
+	display:block;
+	line-height: 30px;
+	text-align:center;
+	width: 28px;
+}
+.Tpanel {
+    width: 270px;
+    height: 100%;
+    position: absolute;
+    background: #eceaea;
+    visible: hidden;
+}
+.Tpanelheader {
+    position: relative;
+    width: 270px;
+    height: 40px;
+    line-height: 40px;
+    background: #eceaea;
+    margin:0;
+    padding:0;
+}
+.Tpanelheader .titles {
+    display: inline-block;
+    height: 40px;
+    color: rgb(94, 80, 80);
+    font: 16px/40px 微软雅黑;
+}
+.Tpanelheader .titles i{
+    width: 20px;
+    height: 18px;
+    background-position: 0 0;
+    margin-top: 11px;
+}
+.Tpanelheader .titles span {
+    display: inline-block;
+    vertical-align: top;
+}
+.foot {
+    height: 40px;
+    padding: 5px 110px 5px 5px;
+    position: relative;
+}
+.footNumber,.footSumPrice {
+    line-height: 20px;		
+}
+.footNumber strong,.footSumPrice strong{
+	font-family: verdana;
+    color: #c81623;
+}
+.footButton {
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    width: 110px;
+    height: 35px;
+    text-align: center;
+    color: rgb(255, 255, 255) !important;
+    font: 16px/35px 微软雅黑;
+    background: rgb(200, 22, 35);
+   	border-radius:4px;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+.TpanelMain{
+	position: relative;
+	height:-moz-calc(100% - 90px); 
+    height:-webkit-calc(100% - 90px);
+    height: calc(100% - 90px);
+}
+.TpanelMaincontent {
+    width: 270px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+  	height:100%;
+}
+.TpanelMainTip{
+	padding: 6px 5px;
+    border: 1px solid #edd28b;
+    background: #fffdee;
+    text-align: center;
+}
+.TpanelMainTip span{
+	display: inline-block;
+    line-height: 20px;
+    vertical-align: middle;
+    color: #333;
+    font-size:12px;
+}
+.TpanelMainTip a{
+	display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 5px;
+    margin-left: 5px;
+    color: #fff;
+    vertical-align: middle;
+    background: #c81623;
+    text-decoration: none;
+    cursor: pointer;
+}
+.TpanelMainTipbox {
+    width: 270px;
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    margin-top: -20px;
+    font-size:12px;
+    text-align:center
+}
+.buyCarGoods {
+    padding: 10px 0;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+   	margin-bottom: 10px;
+}
+.buyCarGoodsSpan1 {
+    float: left;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ddd;
+    padding: 0;
+    margin-right: 5px;
+}
+.buyCarGoodsSpan1 img {
+    width: 50px;
+    height: 50px;
+}
+.buyCarGoodsPname {
+    height: 32px;
+    line-height: 16px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    /* text-align:right */
+}
+.buyCarGoodsPrice {
+    height: 16px;
+    overflow: hidden;
+    font: 12px/16px verdana;
+    color: #666;
+    width:45%;
+    display:inline-block
+}
+.buyCarGoodsPrice  strong{
+	color: #c81623;
+    font-weight: 400;
+}
+.buyCarGoodsNum {
+    height: 16px;
+    overflow: hidden;
+    font: 12px/16px verdana;
+    color: #666;
+    width:33%;
+    display:inline-block
+}
+.buyCarGoodsNum input{
+    width: 32px;
+    height:16px;
+    line-height: 16px;
+    top: 1px;
+    left: 0;
+    text-align: center;
+    vertical-align: top; 
+}
+.buyCarGoodsNum a{
+	display:inline-block;
+	cursor:pointer;
+    width: 16px;
+    text-align: center;
+    height: 16px;
+    line-height: 16px;
+    overflow: hidden;
+    background: #f1f1f1;
+    color: #666;
+    right: -1px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+input[type="number"]{
+        -moz-appearance: textfield;
+    }
+.buyCarGoods:hover .delGoods{
+	display:inline-block
+}   
+.delGoods{
+	position: absolute;
+    right: 5px;
+    top: 3px;
+    color: red;
+    cursor: pointer;
+    display:none
+}
+.searchInputs{
+	float:right;
+	margin-top: 10px;
+	    width: 158px;
+    line-height: 18px;
+    padding: 2px 5px 3px;
+    border: 1px solid #ccc;
+}
+.intervalDiv{
+	width:235px;
+	height:45px;
+	float:right;
+	color:#ccc;
+	line-height:45px
+}
+.intervalDiv input{
+	width:60px;
+	float:none
+	
+}
+.intervalDiv button{
+	background: #f0f0f0;
+	width: 50px;
+    height: 27px;
+   	line-height: 20px;
+	margin-top:0;
+	color:#222;
+	border-radius:2px;
+	margin-left:5px;
+}
