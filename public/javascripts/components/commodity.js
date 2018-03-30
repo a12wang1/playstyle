@@ -6,6 +6,7 @@
 		
 		render:function(){
 			let data=this.props.data;
+			console.log(data)
 			return (<div id={data.id} className="h_body_commodity" style={{marginRight:10}} onClick={this.toOrdersDetail}>
 							<img className="h_body_commodity_img" src={CTX_PATH+data.imgUrls[0]} />
 							<div className="addBuyCar" onClick={this.addBuyCar}><i className="iconfont" >&#xe623;</i>加入购物车</div>

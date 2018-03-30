@@ -68,13 +68,14 @@ const getCommodity=new Promise((resolve, reject) =>{
 		success:function(rel){
 			if(!rel.error){
 				++pageNum;
-				resolve(rel.data.list);
+				resolve(rel);
 			}
 		}
 	});
 })
 function ADDcommodity(){
 	Promise.all([getType, getCommodity]).then(function (rel) {
+
 		for(let i=0;i<rel[0].length;i++){
 			getTypeData=getTypeData.concat(rel[0][i].childs);
 		}
