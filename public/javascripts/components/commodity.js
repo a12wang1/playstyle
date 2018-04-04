@@ -65,8 +65,8 @@
 				success:rel=>{
 					if(!rel.error){
 						++pageNum;
-						getCommodityData=rel.data.list;
-						this.setState({datas: rel.data.list})
+						getCommodityData=rel;
+						this.setState({datas: rel})
 					}
 				},
 				error:(xhl,e,err)=>{

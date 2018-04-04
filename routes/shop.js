@@ -79,8 +79,35 @@ router.post("/category/all", (req, res) => {
     res.send(json)
 })
 router.post("/goods/page", (req, res) => {
-    console.log("进来了，a")
     goodsModel.goodsAbout(req,res)
 })
+router.post("/cart/goods/page", (req, res) => {
+    goodsModel.buyCarList(req,res)
+})
+router.post("/cart/add", (req, res) => {
+    goodsModel.addCar(req,res)
+})
+router.post("/cart/update", (req, res) => {
+    goodsModel.updataCarNum(req,res)
+})
+router.post("/cart/remove", (req, res) => {
+    goodsModel.removeCarGoods(req,res)
+})
+router.post("/goods/detail", (req, res) => {
+    goodsModel.getGoodsDetail(req,res)
+})
+router.post("/address/list", (req, res) => {
+    goodsModel.getAddressList(req,res)
+})
+router.post("/address/add", (req, res) => {
+    goodsModel.addAddress(req,res)
+})
+router.post("/address/update", (req, res) => {
+    goodsModel.updataAddress(req,res)
+})
+router.post("/address/remove", (req, res) => {
+    goodsModel.removeAddress(req,res)
+})
+
 
 module.exports = router;

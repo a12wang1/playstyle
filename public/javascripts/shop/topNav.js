@@ -20,7 +20,7 @@ let HomeTopNav = React.createClass({
 			consoleBtn = <a className='btn-flat navbar-btn' href={ '/console'}>控制台</a>;
 		}else{
 			navBars.push(<NavLoginSign></NavLoginSign>);
-			loginBtn = <a className='btn-flat navbar-btn' href={ '/toLogin'}>登录/注册</a>
+			loginBtn = <a className='btn-flat navbar-btn' href={ '/user/login'}>登录/注册</a>
 		}
 		return <header>
 					<div className='navbar-header'>
@@ -46,7 +46,7 @@ let NavConsole = React.createClass({
 let  NavLoginSign = React.createClass({
 	render:function(){
 		return <li >
-			        <a href={'/toLogin'} >
+			        <a href={'/user/login'} >
 				        登录/注册
 				    </a>
 			    </li>

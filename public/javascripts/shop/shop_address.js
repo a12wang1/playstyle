@@ -22,7 +22,7 @@ let forma3=(data,rel,that)=>{
 									url:CTX_PATH+"/shop/api/address/remove",
 									type:'post',
 									data:{
-										addressUuid:data.uuid
+										addressUuid:data.id
 									},
 									success:function(rtn){
 										if(!rtn.error){ 
@@ -42,8 +42,8 @@ let forma3=(data,rel,that)=>{
 let detailTopNavs,data1=[{mainUrl:"../home",name:"平台首页",data:[{url:"https://www.teraee.com/?page_id=36090",name:"最新资讯"},
                                                    {url:CTX_PATH+'/solution',name:"申请产品试用"},
                                                    {url:"https://www.teraee.com/?page_id=37047",name:"在线演示"}]},
-                         {mainUrl:"./home",name:"商品首页"},
-                         {mainUrl:"./order/detail",name:"我的订单"}],A,
+                         {mainUrl:"../home",name:"商品首页"},
+                         {mainUrl:"../order/detail",name:"我的订单"}],A,
                   data2=[{name:"收货人",width:"100",field:"contact"},
                          {name:"所在地区",width:"200",field:"area"},
                          {name:"详细地址",width:"300",field:"address"},
@@ -63,7 +63,7 @@ let AddressTable=React.createClass({
 		)
 	},
 	able:function(){
-		this.MyTable.changestate()
+        this.MyTable.changestate()
 	}
 });
 let loginYN;
@@ -73,7 +73,7 @@ let loginYN;
 			document.getElementById('TopNav')
 	);
 	$.ajax({
-		url:CTX_PATH+'/isLogin',
+		url:CTX_PATH+'/user/isLogin',
 		type:'post',
 		success:function(rtn){
 			console.log('is login data:%o',rtn);
@@ -106,7 +106,7 @@ function LoadingAddress(){
 		type:'post',
 		success:function(rel){
 			if(!rel.error){
-				if(rel.data===null&&loginYN){
+				if(rel.length===0&&loginYN){
 					A=ReactDOM.render(			
 							<AddressTable WatchHead={data2} data={[]} WatchButtom={WatchButtom} />,
 							document.getElementById("addressTable")
@@ -119,9 +119,9 @@ function LoadingAddress(){
 								  scrollbar:false,
 								  area:['900px','500px']
 								});
-				}else if(rel.data!==null){
-					A=ReactDOM.render(			
-							<AddressTable WatchHead={data2} data={rel.data} WatchButtom={WatchButtom} />,
+				}else if(rel!==null){
+					A=ReactDOM.render(
+							<AddressTable WatchHead={data2} data={rel} WatchButtom={WatchButtom} />,
 							document.getElementById("addressTable")
 							)
 				}
@@ -146,7 +146,7 @@ $(document).on("click","#addAddress",function(){
 	$("#defaultz").prop("checked",false);
 	$("#uuidHidden").val("");
 	$("#typeOfSubmit").val("2");
-    $("#selLev0,#selLev1,#selLev2 ").css("display","none").html("");
+    // $("#selLev0,#selLev1,#selLev2 ").css("display","none").html("");
 	layerIndex=layer.open({
 		  type: 1,
 		  title:"添加地址",
@@ -170,8 +170,6 @@ $("#submitAdr").on("click",function(){
 	}else{
 		detailedAdr.css("border-color","#afafaf").next("div").children(".rowTip").css("display","none");
 	}
-
-	
 	if(Consignee.val().length<2||Consignee.val().length>25){
 		key=1;
 		Consignee.css("border-color","red").next("div").children(".rowTip").css("display","inline-block");
@@ -186,7 +184,7 @@ $("#submitAdr").on("click",function(){
 		ConsigneePhone.css("border-color","#afafaf").next("div").children(".rowTip").css("display","none");
 	}
 		
-	if(getProvinces.val().length<2||$("#selLev2").css("display")=="inline-block"){
+	if(getProvinces.val().length<2){
 		key=1;
 		getProvinces.css("border-color","red").nextAll("div").children(".rowTip").css("display","inline-block");
 	}else{
@@ -201,7 +199,7 @@ $("#submitAdr").on("click",function(){
 			data:{
 				addressUuid:$("#uuidHidden").val(),
 				contact:Consignee.val(),
-				areaCode:$("#zipCodA").val(),
+                area:getProvinces.val(),
 				address:detailedAdr.val(),
 				phone:ConsigneePhone.val(),
 				zipCode:$("#zipCodA").val(),
@@ -223,7 +221,7 @@ $("#submitAdr").on("click",function(){
 				type:'post',
 				data:{
 					contact:Consignee.val(),
-					areaCode:$("#zipCodA").val(),
+					area:getProvinces.val(),
 					address:detailedAdr.val(),
 					phone:ConsigneePhone.val(),
 					zipCode:$("#zipCodA").val(),
@@ -259,7 +257,7 @@ function setAdrData(a,b,c,d,e,f){
 	$("#ConsigneePhone").val(e);
 	$("#defaultz").attr("checked",f);
 }
-$("#selLev0").on("change",function(){
+/*$("#selLev0").on("change",function(){
 	let index=document.getElementById('selLev0').selectedIndex;
     $("#getProvinces").val(document.getElementById('selLev0').options[index].text);
 	$.ajax({
@@ -315,7 +313,8 @@ $("#selLev2").on("change",function(){
     $("#getProvinces").val( $("#getProvinces").val()+document.getElementById('selLev2').options[index].text);
     $("#selLev0,#selLev1,#selLev2 ").css("display","none");
     $("#zipCodA").val($(this).val());
-})
+})*/
+/*
 $("#getProvinces").on("click",function(){
 	let $sel0=$("#selLev0");
 	if($sel0.html()!==""){
@@ -345,6 +344,7 @@ $("#getProvinces").on("click",function(){
 		}
 	});	
 })
+*/
 
 function openDialog(data){
 	$("#getProvinces").val(data.area);
@@ -353,9 +353,8 @@ function openDialog(data){
 	$("#Consignee").val(data.contact);
 	$("#ConsigneePhone").val(data.phone);
 	$("#defaultz").prop("checked",data.first);;
-	$("#uuidHidden").val(data.uuid);
+	$("#uuidHidden").val(data.id);
 	$("#typeOfSubmit").val("1");
-    $("#selLev0,#selLev1,#selLev2").css("display","none").html("");
 	layerIndex=layer.open({
 		  type: 1,
 		  title:"修改地址",
@@ -365,4 +364,4 @@ function openDialog(data){
 		  area:['900px','500px']
 		});
 }
-
+initSelection()

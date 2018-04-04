@@ -1,0 +1,79 @@
+<%- include hearders %>
+<link href="/stylesheets/iconfont.css"  rel="stylesheet" type="text/css"/>
+<link href="/stylesheets/shop.css" type="text/css" rel="stylesheet" />
+<link href="/stylesheets/shopAddress.css"  rel="stylesheet" type="text/css"/>
+<link href="/stylesheets/shopOrders.css" type="text/css" rel="stylesheet" />
+
+<body>
+<div class="navbar navbar-inverse" id="TopNav"></div>
+<div class="navbar navbar-inverse" id="SGDsidebarNav" style="z-index:1"></div>
+<div class="conter">
+    <div id="addressChoose"></div>
+    <div id="orders"></div>
+</div>
+
+
+</body>
+
+<script src="/javascripts/components/sidebarNav.js" type="text/babel"></script>
+<script src="/javascripts/components/my_table.js" type="text/babel"></script>
+<script src="/javascripts/addressCode.js" type="text/javascript"></script>
+<script src="/javascripts/main.js" type="text/babel"></script>
+<script src="/javascripts/shop/topNav.js" type="text/babel"></script>
+<script src="/javascripts/shop/shop_orders.js" type="text/babel"></script>
+<div id="addressAbout" style="display:none;">
+    <form id="addressAbout">
+        <div class="row" style="margin-top:20px">
+            <span class="rowSpan">所在地区<i>*</i></span>
+            <input style="display:block;"  type="text" readonly="readonly" id="getProvinces" placeholder="请点击选择省、市、区" />
+            <select style="display: inline-block" id="selLev0" SIZE=1 OnChange="clickLevel0()"></select>
+            <select style="display: inline-block" id="selLev1" SIZE=1 OnChange="clickLevel1()"></select>
+            <select style="display: inline-block" id="selLev2" SIZE=1 OnChange="clickLevel2()"></select>
+            <div>
+                <div class="rowTip">
+                    <i></i>
+                    <div>省市区为选择或未选择完全</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <span class="rowSpan">详细地址 <i>*</i></span>
+            <textarea rows="5" cols="45" id="detailedAdr" placeholder="建议您如实填写详细收货地址，例如乡镇，街道名称，门牌号码，楼层和房间号等信息"></textarea>
+            <div>
+                <div class="rowTip">
+                    <i></i>
+                    <div>5-120个字符，一个汉字为两个字符</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" hidden="hidden">
+            <span class="rowSpan">地区编码 </span>
+            <input type="text" disabled="disabled"  id="zipCodA"/>
+        </div>
+        <div class="row">
+            <span class="rowSpan">收货人姓名 <i>*</i></span>
+            <input type="text" placeholder="长度应在2-25字符之间" id="Consignee"/>
+            <div><div class="rowTip">
+                    <i></i>
+                    <div>收货人姓名长度应在2-25字符之间</div>
+                </div></div>
+        </div>
+        <div class="row">
+            <span class="rowSpan">收货人电话 <i>*</i></span>
+            <input type="text" placeholder="必须填写您常用的电话号码，方便送货员联系您" id="ConsigneePhone"/>
+            <div><div class="rowTip">
+                    <i></i>
+                    <div>电话号码格式不正确或者未输入</div>
+                </div></div>
+        </div>
+        <div class="row check">
+            <input type="checkbox" id="defaultz" /><label for="defaultz">是否默认为收货地址</label>
+        </div>
+        <div class="row">
+            <button type="button" class="submitAdr" id="submitAdr" >保存地址</button>
+        </div>
+        <input type="text" hidden="hidden" id="uuidHidden"/>
+
+    </form>
+</div>
+</html>

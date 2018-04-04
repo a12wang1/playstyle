@@ -64,7 +64,7 @@ let ThegoodsBuy=React.createClass({
 		let data=this.props.datas;
 		return (
 				<div className="rightGoodsBody">
-					<div className="rightGoodsTitle">{data.descripetion}</div>
+					<div className="rightGoodsTitle">{data.name}</div>
 					<div className="rightGoodsPrice">
 						<span>{data.price}</span>
 						<i>云点</i>
@@ -107,7 +107,7 @@ let ThegoodsBuy=React.createClass({
 			url:CTX_PATH+"/shop/api/cart/add",
 			type:'post',
 			data:{
-				goodsUuid:this.props.datas.uuid,
+				goodsUuid:this.props.datas.id,
 				num:1
 					},
 			success:(rel)=>{
@@ -127,8 +127,8 @@ let ThegoodsBuy=React.createClass({
 		});
 	},
 	nowBuy:function(){
-		const url="uuid="+this.props.datas.uuid+"&num="+this.state.num
-		window.open("../orders?"+url,"_self")
+		const url="uuid="+this.props.datas.id+"&num="+this.state.num
+		window.open("../shop/orders?"+url,"_self")
 	}
 })
 function getNewBuyData(){
@@ -141,7 +141,7 @@ function getNewBuyData(){
 				},
 		success:function(rel){
 			if(!rel.error){
-				BB.updata(rel.data.list)
+				BB.updata(rel)
 			}else{
 				layer.msg(rtn.msg);
 			}
@@ -150,10 +150,11 @@ function getNewBuyData(){
 }
 let GoodsDetail=React.createClass({
 	render:function(){
+        console.log(this.props)
 		return <div className="goodsDetailBody">
 						<ImgShowInFrame datas={this.props.data1}/>
 						<ThegoodsBuy datas={this.props.data2}/>				
-						<DescripetionDiv data={this.props.data2.descripetion}/>
+						<DescripetionDiv data={this.props.data2.description}/>
 				</div>
 	}
 })
@@ -191,7 +192,7 @@ function detailTopNav(){
 			document.getElementById('shopGoodsDetailTopNav')
 	);
 	$.ajax({
-		url:CTX_PATH+'/isLogin',
+		url:CTX_PATH+'/user/isLogin',
 		type:'post',
 		success:function(rtn){
 			if(!rtn.error){
@@ -214,7 +215,7 @@ function detailTopNav(){
 		success:function(rel){
 			if(!rel.error){
 				BB=ReactDOM.render(		
-						<BuyCar datas={rel.data.list}></BuyCar>,
+						<BuyCar datas={rel}></BuyCar>,
 						document.getElementById("buyCarInRight")
 				)
 			}else{
@@ -243,8 +244,9 @@ function detailTopNav(){
 		data:s,
 		success:function(rel){
 			if(!rel.error){
+				console.log(rel[0],"zzz")
 				ReactDOM.render(
-						<GoodsDetail data1={rel.data.imgUrls} data2={rel.data}></GoodsDetail>,
+						<GoodsDetail data1={rel[0].imgUrls} data2={rel[0]}></GoodsDetail>,
 						document.getElementById("goodsDetailBody")
 				)	
 			}else{

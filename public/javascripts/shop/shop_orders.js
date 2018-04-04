@@ -94,8 +94,8 @@ let forma5=(that)=>{
 let A,B,data1=[{mainUrl:"../home",name:"平台首页",data:[{url:"https://www.teraee.com/?page_id=36090",name:"最新资讯"},
                                                    {url:CTX_PATH+'/solution',name:"申请产品试用"},
                                                    {url:"https://www.teraee.com/?page_id=37047",name:"在线演示"}]},
-	           {mainUrl:"./home",name:"商品首页"},
-	           {mainUrl:"./order/detail",name:"我的订单"}],detailTopNavs,
+	           {mainUrl:"../home",name:"商品首页"},
+	           {mainUrl:"../order/detail",name:"我的订单"}],detailTopNavs,
     data3=[{name:"图片",width:"80",field:"imgUrl",formatter:forma1},
            {name:"名称",width:"200",field:"name"},
            {name:"单价",width:"80",field:"price"},
@@ -115,7 +115,7 @@ let AdressChoose=React.createClass({
 	getInitialState: function(){
 		let data=this.props.data;
 		for(let s=0;s<data.length;s++){
-			if(data[s].first===true){
+			if(data[s].first==="true"){
 				return {
 		        	chooseLi:s,
 		        	uuid:data[s].uuid
@@ -150,7 +150,7 @@ let AdressChoose=React.createClass({
 						<span>{rel.area+rel.address}（{rel.contact} 收）
 							<em>{rel.phone}</em>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<em hidden={!rel.first} >默认地址</em>
+							<em hidden={rel.first!=="true"} >默认地址</em>
 						</span>
 						<a onClick={()=>{openDialog(rel)}}>修改本地址</a>
 					</div>
@@ -182,7 +182,7 @@ let ShopTable=React.createClass({
 				</div>
 		)
 	},
-	able:function(){ 
+	able:function(){
 		this.MyTable.changestate()
 	}
 });
@@ -203,7 +203,7 @@ let ShopTable=React.createClass({
 			document.getElementById('TopNav')
 	);
 	$.ajax({
-		url:CTX_PATH+'/isLogin',
+		url:CTX_PATH+'/user/isLogin',
 		type:'post',
 		success:function(rtn){
 			console.log('is login data:%o',rtn);
@@ -229,14 +229,14 @@ function LoadingAddress(){
 		type:'post',
 		success:function(rel){
 			if(!rel.error){
-				if(rel.data===null){
+				if(rel===null||rel.length===0){
 					layer.msg("您尚未有保存的地址，请先添加地址后再结算，3S后跳入地址添加界面！");
 					setTimeout(function(){
 						window.open(CTX_PATH+"/shop/address","_self");
 					},3000)
 				}else{
 					B=ReactDOM.render(			
-						<AdressChoose data={rel.data}></AdressChoose>,
+						<AdressChoose data={rel}></AdressChoose>,
 						document.getElementById("addressChoose")
 						)
 				}
@@ -261,7 +261,7 @@ LoadingAddress();
 		success:function(rel){
 			if(!rel.error){
 				A=ReactDOM.render(			
-					<ShopTable WatchHead={data3} data={rel.data.list} WatchButtom={data5} />,
+					<ShopTable WatchHead={data3} data={rel} WatchButtom={data5} />,
 					document.getElementById("orders")
 					)
 			}else{
@@ -270,6 +270,7 @@ LoadingAddress();
 		}
 	});	
 	}else{
+		console.log(url)
 		$.ajax({
 			url:CTX_PATH+"/shop/api/goods/detail",
 			type:'post',
@@ -277,7 +278,7 @@ LoadingAddress();
 			success:function(rel){
 				if(!rel.error){
 					let myData=[];
-					let D=rel.data;
+					let D=rel[0];
 					D.num=url.num;
 					D.imgUrl=D.imgUrls[0];
 					myData[0]=D;
@@ -350,7 +351,7 @@ function openDialog(data){
 	$("#Consignee").val(data.contact);
 	$("#ConsigneePhone").val(data.phone);
 	$("#defaultz").prop("checked",data.first);;
-	$("#uuidHidden").val(data.uuid);
+	$("#uuidHidden").val(data.id);
 	layerIndex=layer.open({
 		  type: 1,
 		  title:"修改地址",
@@ -390,7 +391,7 @@ $("#submitAdr").on("click",function(){
 		ConsigneePhone.css("border-color","#afafaf").next("div").children(".rowTip").css("display","none");
 	}
 		
-	if(getProvinces.val().length<2||$("#selLev2").css("display")=="inline-block"){
+	if(getProvinces.val().length<2){
 		key=1;
 		getProvinces.css("border-color","red").nextAll("div").children(".rowTip").css("display","inline-block");
 	}else{
@@ -403,7 +404,7 @@ $("#submitAdr").on("click",function(){
 			data:{
 				addressUuid:$("#uuidHidden").val(),
 				contact:$("#Consignee").val(),
-				areaCode:$("#zipCodA").val(),
+				area:getProvinces.val(),
 				address:$("#detailedAdr").val(),
 				phone:$("#ConsigneePhone").val(),
 				zipCode:$("#zipCodA").val(),

@@ -21,6 +21,36 @@ router.get('/', function (req, res, next) {
     }
 });
 
+router.get('/goods/detail', function (req, res, next) {
+    let Bpath=path.join(__dirname, '../')
+    Bpath= path.join(Bpath, 'views/shop')
+    res.render(Bpath+"/shop_goods_detail");
+});
+router.get('/shop/orders', function (req, res, next) {
+    let Bpath=path.join(__dirname, '../')
+    Bpath= path.join(Bpath, 'views/shop')
+    res.render(Bpath+"/shop_orders");
+});
+router.get('/shop/address', function (req, res, next) {
+    let Bpath=path.join(__dirname, '../')
+    Bpath= path.join(Bpath, 'views/shop')
+    res.render(Bpath+"/shop_address");
+});
+router.get('/order/detail', function (req, res, next) {
+    let Bpath=path.join(__dirname, '../')
+    Bpath= path.join(Bpath, 'views/shop')
+    res.render(Bpath+"/shop_orders_detail");
+});
+router.get('/home', function (req, res) {
+    res.redirect(307,'/');
+});
+
+
+
+
+
+
+
 router.all('/zhuxiao', function (req, res) {
     console.log("我点击了注销；");
     req.session.destroy(function (err) {

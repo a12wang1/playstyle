@@ -1,0 +1,37 @@
+<%- include hearders %>
+<link href="/stylesheets/iconfont.css"  rel="stylesheet" type="text/css"/>
+<link href="/stylesheets/shop.css" type="text/css" rel="stylesheet" />
+<link href="/stylesheets/shopOrders.css"  rel="stylesheet" type="text/css"/>
+<link href="/stylesheets/shopOrdersDetail.css" type="text/css" rel="stylesheet" />
+
+
+<body>
+<div id="buyCarInRight"></div>
+<div class="navbar navbar-inverse" id="TopNav"></div>
+<div class="navbar navbar-inverse" id="addressSidebarNav" style="z-index:1"></div>
+<div class="conter" style="width:1200px">
+
+    <div style="padding: 10px 0;overflow:hidden;	background-color: #263347;">
+        <ul class="chooseDd">
+            <li class="beChose"> <a>全部订单</a></li>
+            <li> <a name="1">待付款</a></li>
+            <li> <a name="2">待发货</a></li>
+            <li> <a name="3">待收货</a></li>
+            <li> <a name="4">已成交</a></li>
+            <li> <a name="5">已取消</a></li>
+        </ul>
+        <div  class="searchInput">
+            <input id="searchInput" type="text" style="color: rgb(104, 104, 104);" placeholder="商品名称/订单号"/>
+            <a id="search">搜索</a>
+        </div>
+    </div>
+    <div id="orderTable"></div>
+</div>
+</body>
+<script src="/javascripts/components/buyCar.js" type="text/babel"></script>
+<script src="/javascripts/components/sidebarNav.js" type="text/babel"></script>
+<script src="/javascripts/components/my_table.js" type="text/babel"></script>
+<script src="/javascripts/main.js" type="text/babel"></script>
+<script src="/javascripts/shop/topNav.js" type="text/babel"></script>
+<script src="/javascripts/shop/shop_orders_detail.js" type="text/babel"></script>
+</html>

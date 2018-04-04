@@ -98,7 +98,7 @@ function AddBuyCar(){
 		success:function(rel){
 			if(!rel.error){
 				BB=ReactDOM.render(		
-						<BuyCar datas={rel.data.list}></BuyCar>,
+						<BuyCar datas={rel}></BuyCar>,
 						document.getElementById("buyCarInRight")
 				)
 			}else{
@@ -122,10 +122,11 @@ $(window).scroll(function() {
 				priceMax:priceMax
 					},
 			success:function(rel){
+				console.log(rel)
 				if(!rel.error){
-					if(rel.data.list.length>0){
+					if(rel.length>0){
 						++pageNum;
-					getCommodityData=getCommodityData.concat(rel.data.list);
+					getCommodityData=getCommodityData.concat(rel);
 					AA.aloadingMore(getCommodityData);
 					}
 				}
@@ -187,7 +188,8 @@ function getNewBuyData(){
 				},
 		success:function(rel){
 			if(!rel.error){
-				BB.updata(rel.data.list)
+				BB.updata(rel)
+				console.log(rel)
 			}else{
 				layer.msg(rtn.msg);
 			}
