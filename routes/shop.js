@@ -108,6 +108,10 @@ router.post("/address/update", (req, res) => {
 router.post("/address/remove", (req, res) => {
     goodsModel.removeAddress(req,res)
 })
-
-
+router.post("/buy", (req, res) => {
+    goodsModel.buyGoods(req,res)
+})
+router.post("/order/page", (req, res) => {
+    goodsModel.orderList(req,res)
+})
 module.exports = router;

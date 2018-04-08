@@ -1,7 +1,7 @@
 let forma1=(data,rel)=>{
 	return <div className="ordersAllItems broderMid" style={{height:55*data.goods.length}}>{
 		data.goods.map((a,index)=>{
-		return <img src={CTX_PATH+a["imgUrl"]} style={{height:"50",width:"50",marginLeft:'12.5'}} />
+		return <img src={CTX_PATH+a["imgUrls"]} style={{height:"50",width:"50",marginLeft:'12.5'}} />
 	})
 	}		
 	</div>
@@ -140,7 +140,7 @@ WatchButtom={bottom:true,pagination:true,pageSize:"10",parameter:["strike"]};
 		success:function(rel){
 			if(!rel.error){
 				BB=ReactDOM.render(		
-						<BuyCar datas={rel.data.list}></BuyCar>,
+						<BuyCar datas={rel}></BuyCar>,
 						document.getElementById("buyCarInRight")
 				)
 			}else{
@@ -156,11 +156,10 @@ WatchButtom={bottom:true,pagination:true,pageSize:"10",parameter:["strike"]};
 			document.getElementById('TopNav')
 	);
 	$.ajax({
-		url:CTX_PATH+'/isLogin',
+		url:CTX_PATH+'/user/isLogin',
 		type:'post',
 		success:function(rtn){
-			console.log('is login data:%o',rtn);
-			if(!rtn.error){ 
+			if(!rtn.error){
 				detailTopNavs.setState({login:rtn.data});
 				
 			}else{
@@ -177,7 +176,6 @@ WatchButtom={bottom:true,pagination:true,pageSize:"10",parameter:["strike"]};
 		)
 })();
 function orderList(state,keyword){
-	console.log(state)
 	$.ajax({
 		url:CTX_PATH+"/shop/api/order/page",
 		type:'post',
@@ -190,7 +188,7 @@ function orderList(state,keyword){
 		success:function(rel){
 			if(!rel.error){
 					ReactDOM.render(			
-		<MyTable WatchHead={data2} data={rel.data.list} WatchButtom={WatchButtom}></MyTable>,
+		<MyTable WatchHead={data2} data={rel} WatchButtom={WatchButtom}></MyTable>,
 		document.getElementById("orderTable")
 		)
 			}else{
@@ -268,7 +266,7 @@ function addBuyCarToo(data){
 			url:CTX_PATH+"/shop/api/cart/add",
 			type:'post',
 			data:{
-				goodsUuid:data.goods[i].uuid,
+				goodsUuid:data.goods[i].id,
 				num:data.goods[i].num
 			},
 			success:function(rel){
@@ -302,7 +300,7 @@ function getNewBuyData(){
 				},
 		success:function(rel){
 			if(!rel.error){
-				BB.updata(rel.data.list)
+				BB.updata(rel)
 			}else{
 				layer.msg(rtn.msg);
 			}
