@@ -44,7 +44,7 @@ function RendRs(){
 }
 
 let AA,pageNum=1,pageSize=8,BB,data1=[{mainUrl:"../home",name:"平台首页"},
-                  {mainUrl:"./order/detail",name:"我的订单"},{mainUrl:"./address",name:"地址管理"}
+                  {mainUrl:"./order/detail",name:"我的订单"},{mainUrl:"./shop/address",name:"地址管理"}
                   ];
 const getType=new Promise((resolve, reject) =>{
 	$.ajax({

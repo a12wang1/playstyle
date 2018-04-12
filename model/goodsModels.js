@@ -96,6 +96,7 @@ module.exports = {
                     console.log(err.message)
                     res.send("数据读取失败");
                     conns.release();
+                    return;
                 } else {
                     if (rel[0]['COUNT(*)'] === 0) {
                         sqlLink = 'select id,name,price,saleNum,storeNum ,imgUrls from goods where id=? '
@@ -106,6 +107,7 @@ module.exports = {
                                 console.log(err.message)
                                 res.send("数据读取失败");
                                 conns.release();
+                                return;
                             } else {
                                 sqlLink = 'insert into buy_goods (uuid,name,price,storeNum,imgUrl,num,state) values(?,?,?,?,?,?,?)'
                                 parm = [rel[0].id, rel[0].name, rel[0].price, rel[0].storeNum, rel[0].imgUrls, 1, 1]
@@ -115,11 +117,12 @@ module.exports = {
                                         console.log(err.message)
                                         res.send("数据读取失败");
                                         conns.release();
+                                        return;
                                     } else {
-                                        console.log(rel, "insert")
-
                                         let json = {"msg": "success", "error": null, "data": null}
                                         res.send(json);
+                                        conns.release();
+                                        return;
                                     }
                                 })
                             }
@@ -133,14 +136,18 @@ module.exports = {
                                 console.log(err.message)
                                 res.send("数据读取失败");
                                 conns.release();
+                                return;
                             } else {
                                 console.log(rel, "update")
                                 let json = {"msg": "success", "error": null, "data": null}
                                 res.send(json);
+                                conns.release();
+                                return;
                             }
                         })
                     }
                     // res.send(rel);
+
                 }
             })
         })
@@ -162,11 +169,13 @@ module.exports = {
                     let s = err.message;
                     console.log(err.message)
                     res.send("数据读取失败");
-                    conns.release();
                 } else {
                     let json = {"msg": "success", "error": null, "data": null}
                     res.send(json);
+
                 }
+                conns.release();
+
             })
 
         })
@@ -188,12 +197,12 @@ module.exports = {
                     let s = err.message;
                     console.log(err.message)
                     res.send("数据读取失败");
-                    conns.release();
                 } else {
                     console.log(rel)
                     let json = {"msg": "success", "error": null, "data": null}
                     res.send(json);
                 }
+                conns.release();
             })
 
         })
@@ -218,7 +227,6 @@ module.exports = {
                     console.log(err.message)
                     res.send("数据读取失败");
                 } else {
-                    console.log(rel)
                     for (let s = 0; s < rel.length; s++) {
                         k = rel[s].imgUrls.split(',');
                         rel[s].imgUrls = k
@@ -252,11 +260,11 @@ module.exports = {
                     let s = err.message;
                     console.log(err.message)
                     res.send("数据读取失败");
-                    conns.release();
                 } else {
-                    console.log(rel, "这是地址列表")
                     res.send(rel)
                 }
+                conns.release();
+
             })
         })
     },
@@ -282,11 +290,11 @@ module.exports = {
                     let s = err.message;
                     console.log(err.message)
                     res.send("数据读取失败");
-                    conns.release();
                 } else {
                     console.log(rel, "这是地址列表")
                     res.send(rel)
                 }
+                conns.release();
             })
         })
     },
@@ -311,11 +319,11 @@ module.exports = {
                     let s = err.message;
                     console.log(err.message)
                     res.send("数据读取失败");
-                    conns.release();
                 } else {
-                    console.log(rel, "这是地址列表")
                     res.send(rel)
                 }
+                conns.release();
+
             })
         })
     },
@@ -341,10 +349,11 @@ module.exports = {
                     let s = err.message;
                     console.log(err.message)
                     res.send("数据读取失败");
-                    conns.release();
                 } else {
                     res.send({"msg": "success", "error": null, "data": null})
                 }
+                conns.release();
+
             })
         })
     },
@@ -373,12 +382,14 @@ module.exports = {
                     console.log(err.message)
                     res.send("数据读取失败");
                     conns.release();
+                    return;
                 } else {
                     // res.send({"msg": "success", "error": null, "data": null})
                     sqlLink2 = 'insert into UserBuyList (createTime,payTime,address,goods,receiver,state,uid,num) values(current_timestamp,current_timestamp,?,?,?,?,?,?)'
                     let newA,num=[],returnNum;
                     if (typeof  parms.uuids === "string") {
-                        newA = parms.uuids
+                        newA = parms.uuids;
+                        returnNum=1;
                     } else {
                         let arr=[...parms.uuids];
                         for(let i=parms.uuids.length;i>0;i--){
@@ -390,8 +401,6 @@ module.exports = {
                             }
                         }
                         num=num.reverse()
-                        console.log(arr,"arr");
-                        console.log(num,"num");
                         newA = arr.join(",");
                         returnNum=num.join(",");
                     }
@@ -434,11 +443,17 @@ module.exports = {
                     let s = err.message;
                     console.log(err.message)
                     res.send("数据读取失败");
+                    conns.release();
+                    return;
                 } else {
                     let ret=[];
                     rel.map((data,index)=>{
                         data.id=data.uuid;
-                        let s=data.goods.split(","),fn=[],l=data.num.split(",")
+                        console.log(data.goods.split(","),"s");
+                        let s=data.goods.split(","),fn=[],l=[];
+                        if(data.num){
+                            l=data.num.split(",")
+                        }
                            for(let i=0;i<s.length;i++){
                             fn[i]=(callback)=>{
                                 let sql1="select id,name,price,imgUrls from goods where id=?"
@@ -456,19 +471,24 @@ module.exports = {
                            }
 
                         async.series(fn,(err,result)=>{
+                            if(err){
+                                res.send({err:"出错",message:"查询出错了"})
+                                conns.release();
+                                return;
+                            }
                             for(let i=0;i<result.length;i++){
                                 result[i]=result[i][0];
                                 result[i].num=l[i]
                                let k = result[i].imgUrls.split(',');
                                 result[i].imgUrls = k[0];
                             }
-                        data.goods=result
+                              data.goods=result
                         })
                     })
-                    setTimeout(()=>{res.send(rel)},"1000")
+                    setTimeout(()=>{res.send(rel);                conns.release();
+                    },"1000")
 
                 }
-                conns.release();
             })
         })
 

@@ -116,7 +116,7 @@ let BB,isLogin="inline-block",detailTopNavs,data1=[{mainUrl:"../../home",name:"�
                                                               {url:CTX_PATH+'/solution',name:"申请产品试用"},
                                                               {url:"https://www.teraee.com/?page_id=37047",name:"在线演示"}]},
                                     {mainUrl:"../home",name:"商品首页"},
-                                    {mainUrl:"../address",name:"地址管理"}],
+                                    {mainUrl:"../shop/address",name:"地址管理"}],
 data2=[{name:"图片",width:"80",field:"img",formatter:forma1},
        {name:"名称",width:"200",field:"nichen",formatter:forma2},
        {name:"单价",width:"80",field:"price",formatter:forma4},

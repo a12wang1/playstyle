@@ -8,8 +8,7 @@ let forma3 = (data, rel, that) => {
 }
 let forma2 = (data, rel, that) => {
     if (that.state.num === "i have not be Initialization") {
-        console.log(data)
-        let s = {uuid: data.uuid||data.id, num: data.num};
+        let s = {uuid: data.uuid||data.id, num: parseInt(data.num)};
         submitDataJson = [...submitDataJson, s];
         that.setState(() => {
             return {num: data.num}
@@ -21,10 +20,18 @@ let forma2 = (data, rel, that) => {
             if (num >= 0 && num < parseInt(data.storeNum)) {
                 that.setState({num: ++num}, () => {
                     for (let i = 0, vlen = submitDataJson.length; i < vlen; i++) {
-                        if (submitDataJson[i].uuid == data.uuid) {
-                            ++submitDataJson[i].num
-                            break;
+                        if(data.uuid){
+                            if (submitDataJson[i].uuid == data.uuid ) {
+                                ++submitDataJson[i].num
+                                break;
+                            }
+                        }else{
+                            if (submitDataJson[i].uuid == data.id ) {
+                                ++submitDataJson[i].num
+                                break;
+                            }
                         }
+
                     }
                 });
             }
@@ -127,7 +134,6 @@ let A, B, data1 = [{
 let AdressChoose = React.createClass({
     getInitialState: function () {
         let data = this.props.data;
-        console.log(data)
         for (let s = 0; s < data.length; s++) {
             if (data[s].first === "true") {
                 return {
@@ -156,7 +162,7 @@ let AdressChoose = React.createClass({
                             return (
                                 <li key={"addressLi-" + index}
                                     className={chose === index ? "addressWarp choose" : "addressWarp"} onClick={() => {
-                                    this.chooseAdress(index, rel.uuid)
+                                    this.chooseAdress(index, rel.id)
                                 }}>
                                     <div className="addressIcon">
                                         <i className="iconfont icon-adress"></i>
@@ -293,7 +299,6 @@ LoadingAddress();
             }
         });
     } else {
-        console.log(url)
         $.ajax({
             url: CTX_PATH + "/shop/api/goods/detail",
             type: 'post',
@@ -322,7 +327,6 @@ LoadingAddress();
 
 function submitz() {
     let uuids = [];
-    console.log(submitDataJson)
     for (let s = 0; s < submitDataJson.length; s++) {
         for (let k = 0; k < submitDataJson[s].num; k++) {
             uuids = [...uuids, submitDataJson[s].uuid]

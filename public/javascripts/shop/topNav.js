@@ -24,7 +24,7 @@ let HomeTopNav = React.createClass({
 		}
 		return <header>
 					<div className='navbar-header'>
-					    <a className='navbar-brand'  href={ '/home'}><img style={{height:'24px'}} src={ '/images/upload/1508747876313zzz.png'}/></a>
+					    <a className='navbar-brand'  href={ '/home'}><img style={{height:'24px'}} src={ '/images/shop/ydsc.png'}/></a>
 					    {consoleBtn}
 					    {loginBtn}
 					</div>
@@ -55,7 +55,7 @@ let  NavLoginSign = React.createClass({
 let NavCount = React.createClass({
 	render:function(){
 		var countUrl =  '/user/setting';
-		var logoutUrl =  '/logout';
+		var logoutUrl =  '/zhuxiao';
 		return  <li className='dropdown' ref="toggle" onClick={this.beClick}>
 	                <a href='javascript:void(0);' className='dropdown-toggle hidden-xs hidden-sm' data-toggle='dropdown'>
 	                    	我的账号

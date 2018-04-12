@@ -183,7 +183,7 @@ let detailTopNavs,BB,data1=[{mainUrl:"../../home",name:"平台首页",data:[{url
                                                                     {url:CTX_PATH+'/solution',name:"申请产品试用"},
                                                                     {url:"https://www.teraee.com/?page_id=37047",name:"在线演示"}]},
                             {mainUrl:"../home",name:"商品首页"},
-                            {mainUrl:"../order/detail",name:"我的订单"},{mainUrl:"../address",name:"地址管理"}
+                            {mainUrl:"../order/detail",name:"我的订单"},{mainUrl:"../shop/address",name:"地址管理"}
                             ];
 let isLogin="inline-block";
 function detailTopNav(){
