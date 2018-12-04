@@ -4,8 +4,8 @@ module.exports = (function () {
     var conn = mySql.createPool({
         host: 'localhost',       //主机
         user: 'root',               //MySQL认证用户名
-        password: '123456',        //MySQL认证用户密码
-        database: 'segment',
+        password: 'qwe123',        //MySQL认证用户密码
+        database: 'nodejs',
         port: '3306'                   //端口号
         }
     );
